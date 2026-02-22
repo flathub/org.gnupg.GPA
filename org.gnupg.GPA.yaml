@@ -1,8 +1,10 @@
 app-id: org.gnupg.GPA
 runtime: org.freedesktop.Platform
-runtime-version: '22.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 command: gpa
+rename-desktop-file: gpa.desktop
+rename-icon: gpa
 finish-args:
   - --share=ipc
   - --socket=x11
@@ -11,22 +13,11 @@ finish-args:
   - --filesystem=host
   - --filesystem=/tmp
 
-rename-desktop-file: gpa.desktop
-rename-icon: gpa
-
 cleanup:
-  - "*.a"
-  - "*.la"
-  - "/cache"
-  - "/include"
-  - "/lib/*.a"
-  - "/lib/pkgconfig"
-  - "/man"
-  - "/share/aclocal"
-  - "/share/devhelp"
-  - "/share/gtk-doc"
-  - "/share/man"
-  - "/share/pkgconfig"
+  - /include
+  - /lib/pkgconfig
+  - /share/info
+  - /share/man
 
 modules:
 
@@ -47,20 +38,21 @@ modules:
       - --disable-pinentry-tqt
       - --disable-pinentry-tty
     sources:
-      - type: git
-        url: https://dev.gnupg.org/source/pinentry.git
-        commit: aaf5d44f26e39f57bb47ae09dd3d575fcc51d9f5 # v1.2.0
+      - type: archive
+        url: https://gnupg.org/ftp/gcrypt/pinentry/pinentry-1.3.2.tar.bz2
+        sha256: 8e986ed88561b4da6e9efe0c54fa4ca8923035c99264df0b0464497c5fb94e9e
 
   - name: gpa
     buildsystem: autotools
     post-install:
-      - install -Dm644 ${FLATPAK_ID}.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/gpa.png
-      - install -Dm644 ${FLATPAK_ID}.metainfo.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml
+      - install -Dm644 gpa.png -t ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps
+      - install -Dm644 ${FLATPAK_ID}.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
+      - desktop-file-edit --set-name="GPA" /app/share/applications/gpa.desktop
     sources:
-      - type: git
-        url: https://dev.gnupg.org/source/gpa.git
-        commit: faaf0b7b72bd3c4ed02490132a693d0692b45bfb
+      - type: archive
+        url: https://www.gnupg.org/ftp/gcrypt/gpa/gpa-0.11.1.tar.bz2
+        sha256: 0bc5b2cd3e0641d07a2d8af372a09659decd918bee22fdfbefd2133d7c4d5d0b
       - type: file
-        path: org.gnupg.GPA.png
+        path: gpa.png
       - type: file
         path: org.gnupg.GPA.metainfo.xml

@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>org.gnupg.GPA</id>
-  <name>GPA</name>
-  <developer_name>GnuPG</developer_name>
-  <summary>Graphical frontend to GnuPG</summary>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0</project_license>
-  <url type="homepage">https://www.gnupg.org/related_software/gpa/index.html</url>
-  <content_rating type="oars-1.1" />
+  <id>org.gnupg.GPA</id>
+  <name>GPA</name>
+  <developer id="org.gnupg">
+    <name>GnuPG</name>
+  </developer>
+  <summary>Graphical frontend to GnuPG</summary>
   <description>
-    <p>The GNU Privacy Assistant (GPA) is a graphical user interface for the GnuPG (GNU Privacy Guard).</p>
+    <p>The GNU Privacy Assistant (GPA) is a graphical user interface for the GnuPG (GNU Privacy Guard)</p>
   </description>
+  <url type="homepage">https://www.gnupg.org/related_software/gpa/index.html</url>
+  <url type="vcs-browser">https://dev.gnupg.org/source/gpa</url>
+  <content_rating type="oars-1.1" />
+  <launchable type="desktop-id">org.gnupg.GPA.desktop</launchable>
   <recommends>
     <control>pointing</control>
     <control>keyboard</control>
   </recommends>
-  <releases>
-    <release version="0.10.0" date="2018-10-16"/>
-  </releases>
   <screenshots>
     <screenshot type="default">
       <caption>Main Window</caption>
@@ -28,5 +29,36 @@
       <image type="source">https://www.gnupg.org/related_software/gpa/screenshots/public_keyring_dialog.png</image>
     </screenshot>
   </screenshots>
-  <launchable type="desktop-id">org.gnupg.GPA.desktop</launchable>
+  <releases>
+    <release version="0.11.1" date="2026-02-12">
+      <url>https://dev.gnupg.org/T7449</url>
+      <description>
+        <ul>
+          <li>Remove unused trustitem stuff to make it build with gpgme 2.x.</li>
+          <li>Fix a crash due to bad marshaling.</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.11.0" date="2024-12-10">
+      <url>https://dev.gnupg.org/T7449</url>
+      <description>
+        <p>Ported to GTK 3.</p>
+      </description>
+    </release>
+    <release version="0.10.0" date="2018-10-16">
+      <description>
+        <ul>
+          <li>Added key manager context menu items to copy the key fingerprint and the secret key to the clipboard.</li>
+          <li>Added "Details" buttons to many error popups to show raw diagnostic output from gpg.</li>
+          <li>Changed the "Retrieve Key" dialog to first try the Web Key Directory if a mail address is given.
+            Only if this lookup fails the keyservers are searched.</li>
+          <li>Added a user-ID notebook page to show per user-ID info.</li>
+          <li>Made location of locale dir under Windows more flexible.</li>
+          <li>Fixed crash on filename conversion error. [#2185]</li>
+          <li>Fixed listing of key algos in the subkey windows. [#3405]</li>
+          <li>Removed lazy loading of the secret keyring. [#3748]</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
 </component>
